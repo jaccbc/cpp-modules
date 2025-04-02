@@ -6,7 +6,7 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 02:11:54 by joandre-          #+#    #+#             */
-/*   Updated: 2024/12/30 23:23:29 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:48:32 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	PhoneBook::getSlot()
 	size_t	i = 0;
 	while (!user[i].isClear() && i < MAX_CONTACTS - 1)
 		++i;
-	return (i);
+	return i;
 }
 
 bool	PhoneBook::addContact()

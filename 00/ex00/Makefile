@@ -6,7 +6,7 @@
 #    By: joandre- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/15 04:01:40 by joandre-          #+#    #+#              #
-#    Updated: 2025/03/26 17:18:40 by joandre-         ###   ########.fr        #
+#    Updated: 2025/04/02 19:37:00 by joandre-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,6 @@ all: $(NAME)
 
 $(NAME):
 	$(CXX) $(CXXFLAGS) -o $(NAME) $(SRC)
-
-run: $(NAME)
-	./$(NAME)
 
 clean:
 	rm -rf $(NAME)

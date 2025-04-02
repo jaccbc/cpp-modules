@@ -6,7 +6,7 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 02:05:48 by joandre-          #+#    #+#             */
-/*   Updated: 2024/12/30 23:22:57 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:46:29 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	Contact::isClear()
 
 size_t	Contact::maxSize()
 {
-	return (BUFFER_SIZE);
+	return BUFFER_SIZE ? BUFFER_SIZE - 1 : BUFFER_SIZE;
 }
 
 bool	Contact::validPhoneNumber(std::string& userInput)
@@ -71,7 +71,7 @@ bool	Contact::getInput(const char *prompt, std::string& userInput, char *info, b
 			continue ;
 		if (userInput.size() >= maxSize())
 		{
-			std::cout << "Only " << maxSize() << " bytes allowed!" << std::endl;
+			std::cout << "Only " << maxSize() << " characters allowed!" << std::endl;
 			continue ;
 		}
 		if (phone && validPhoneNumber(userInput) == false)
@@ -104,8 +104,7 @@ bool	Contact::createContact()
 
 std::string	Contact::truncate(std::string& str)
 {
-	if (str.size() >= 10) return str.substr(0, 9) + '.';
-	return std::string(10 - str.size(), ' ') + str;
+	return str.size() >= 10 ? str.substr(0, 9) + '.' : std::string(10 - str.size(), ' ') + str;
 }
 
 void	Contact::printContact()
