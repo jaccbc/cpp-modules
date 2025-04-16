@@ -6,7 +6,7 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 23:27:40 by joandre-          #+#    #+#             */
-/*   Updated: 2025/01/21 21:53:43 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:52:30 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,17 @@
 #include <iostream>
 #include <fstream>
 
-class Sed
-{
+class Sed {
 	private:
 		std::string outFilename;
 		std::ifstream infile;
 		std::ofstream outfile;
 		bool state;
 	public:
-		Sed(std::string);
+		Sed(std::string filename);
 		~Sed();
 		bool getState() const;
-		void replace(const std::string, const std::string);
+		void replace(const std::string s1, const std::string s2);
 };
 
 #endif

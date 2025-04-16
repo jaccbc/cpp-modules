@@ -6,7 +6,7 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 23:59:18 by joandre-          #+#    #+#             */
-/*   Updated: 2024/12/30 00:24:44 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:58:49 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@
 #include <iomanip>
 #include <iostream>
 
-class Contact
-{
+class Contact {
 	public:
 		bool createContact();
 		void printContact();

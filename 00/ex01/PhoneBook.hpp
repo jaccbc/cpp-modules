@@ -6,7 +6,7 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 23:34:00 by joandre-          #+#    #+#             */
-/*   Updated: 2024/12/30 00:25:54 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:59:39 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 #include "Contact.hpp"
 #include <sstream>
 
-class PhoneBook
-{
+class PhoneBook {
 	private:
 		bool indexValid(std::string& str);
 		static const size_t MAX_CONTACTS = 8;

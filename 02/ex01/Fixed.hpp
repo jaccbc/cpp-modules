@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Weapon.hpp                                         :+:      :+:    :+:   */
+/*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/05 01:18:24 by joandre-          #+#    #+#             */
-/*   Updated: 2025/04/16 11:44:57 by joandre-         ###   ########.fr       */
+/*   Created: 2025/01/24 01:30:20 by joandre-          #+#    #+#             */
+/*   Updated: 2025/04/15 17:29:04 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WEAPON_H
-#define WEAPON_H
+#ifndef FIXED_H
+#define FIXED_H
 
-#include <string>
+#include <iostream>
+#include <cmath>
 
-class Weapon
-{
+class	Fixed {
 	private:
-		std::string type;
+		int num;
+		static const int BITS = 8;
 	public:
-		Weapon(std::string weapon);
-		std::string& getType();
-		void setType(const std::string weapon);
+		Fixed();
+		Fixed(const int);
+		Fixed(const float);
+		Fixed(const Fixed&);
+		Fixed& operator=(const Fixed&);
+		~Fixed();
+		int getRawBits(void) const;
+		void setRawBits(int const);
+		float toFloat(void) const;
+		int toInt(void) const;
 };
+
+std::ostream& operator<<(std::ostream& out, Fixed const& num);
 
 #endif

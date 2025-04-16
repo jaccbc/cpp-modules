@@ -6,7 +6,7 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 22:49:15 by joandre-          #+#    #+#             */
-/*   Updated: 2025/01/22 00:17:28 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:54:43 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 #include <iostream>
 
-class Harl
-{
+class Harl {
 	private:
 		void debug(void);
 		void info(void);

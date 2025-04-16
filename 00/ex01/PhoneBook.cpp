@@ -6,22 +6,20 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 02:11:54 by joandre-          #+#    #+#             */
-/*   Updated: 2025/04/02 19:48:32 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:59:34 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 
-size_t	PhoneBook::getSlot()
-{
+size_t	PhoneBook::getSlot() {
 	size_t	i = 0;
 	while (!user[i].isClear() && i < MAX_CONTACTS - 1)
 		++i;
 	return i;
 }
 
-bool	PhoneBook::addContact()
-{
+bool	PhoneBook::addContact() {
 	size_t i = getSlot();
 	if (i == MAX_CONTACTS - 1)
 		user[i].clear();
@@ -29,11 +27,9 @@ bool	PhoneBook::addContact()
 	return user[i].createContact();
 }
 
-bool	PhoneBook::indexValid(std::string& str)
-{
+bool	PhoneBook::indexValid(std::string& str) {
 	for (std::string::const_iterator i = str.begin(); i != str.end(); i++)
-		if (!std::isdigit(static_cast<unsigned char>(*i)))
-			return false;
+		if (!std::isdigit(static_cast<unsigned char>(*i))) return false;
 	return true;
 }
 
