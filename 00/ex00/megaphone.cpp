@@ -6,7 +6,7 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 21:03:01 by joandre-          #+#    #+#             */
-/*   Updated: 2025/04/02 19:34:50 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/04/26 00:50:14 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ int	main(int argc, char **argv)
 		for (int i = 0; argv[ac][i]; i++)
 			std::cout << (char)std::toupper(argv[ac][i]);
 	std::cout << std::endl;
-	return argc == 1 ? 1 : 0;
+	return 0;
 }

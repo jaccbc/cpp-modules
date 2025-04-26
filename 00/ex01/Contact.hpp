@@ -6,7 +6,7 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 23:59:18 by joandre-          #+#    #+#             */
-/*   Updated: 2025/04/16 11:58:49 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/04/26 01:00:54 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,6 @@
 #include <iostream>
 
 class Contact {
-	public:
-		bool createContact();
-		void printContact();
-		void printContactAll();
-		size_t maxSize();
-		bool isClear();
-		void clear();
-		Contact();
 	private:
 		bool getInput(const char *prompt, std::string& userInput, char *info, bool phone);
 		bool validInput(std::string& userInput);
@@ -38,6 +30,14 @@ class Contact {
 		char nickname[BUFFER_SIZE];
 		char phoneNumber[BUFFER_SIZE];
 		char darkestSecret[BUFFER_SIZE];
+	public:
+		Contact();
+		bool createContact();
+		void printContact();
+		void printContactAll();
+		size_t maxSize();
+		bool isClear();
+		void clear();
 };
 
 #endif
