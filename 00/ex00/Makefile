@@ -6,7 +6,7 @@
 #    By: joandre- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/15 04:01:40 by joandre-          #+#    #+#              #
-#    Updated: 2025/04/26 00:54:57 by joandre-         ###   ########.fr        #
+#    Updated: 2025/04/26 22:14:19 by joandre-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ clean:
 fclean: clean
 	rm -rf $(NAME)
 
-re: clean all
+re: fclean all
 
 run: $(NAME)
 	valgrind -s --leak-check=full --show-leak-kinds=all \
