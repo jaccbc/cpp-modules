@@ -6,7 +6,7 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 00:15:00 by joandre-          #+#    #+#             */
-/*   Updated: 2025/04/16 11:47:17 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/05/01 19:31:20 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool	Sed::getState() const {
 	return state;
 }
 
-void	Sed::replace(const std::string s1, const std::string s2) {
+void	Sed::replace(const std::string& s1, const std::string& s2) {
 	if (state == false) return ;
 	std::string content;
 	if (!std::getline(infile, content, '\0'))

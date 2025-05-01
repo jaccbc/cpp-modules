@@ -6,7 +6,7 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 23:27:40 by joandre-          #+#    #+#             */
-/*   Updated: 2025/04/16 11:52:30 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/05/01 19:30:48 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class Sed {
 		Sed(std::string filename);
 		~Sed();
 		bool getState() const;
-		void replace(const std::string s1, const std::string s2);
+		void replace(const std::string& s1, const std::string& s2);
 };
 
 #endif
