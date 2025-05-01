@@ -6,18 +6,18 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 02:05:48 by joandre-          #+#    #+#             */
-/*   Updated: 2025/04/16 11:58:22 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/05/01 17:24:11 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
 
 void Contact::clear() {
-	memset(firstName, 0, BUFFER_SIZE);
-	memset(lastName, 0, BUFFER_SIZE);
-	memset(nickname, 0, BUFFER_SIZE);
-	memset(phoneNumber, 0, BUFFER_SIZE);
-	memset(darkestSecret, 0, BUFFER_SIZE);
+	std::memset(firstName, 0, BUFFER_SIZE);
+	std::memset(lastName, 0, BUFFER_SIZE);
+	std::memset(nickname, 0, BUFFER_SIZE);
+	std::memset(phoneNumber, 0, BUFFER_SIZE);
+	std::memset(darkestSecret, 0, BUFFER_SIZE);
 }
 
 Contact::Contact() {
