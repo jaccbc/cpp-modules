@@ -6,7 +6,7 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 00:14:18 by joandre-          #+#    #+#             */
-/*   Updated: 2025/04/26 00:58:16 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/05/01 18:03:17 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ int	main(void) {
 		else if (userInput.compare("EXIT") == 0)
 			return std::cout << "The contacts are lost forever!" << std::endl, 0;
 	}
-	return std::cerr << "I/O stream failure!" << std::endl, 1;
+	return std::cout << "I/O stream failure!" << std::endl, 1;
 }
