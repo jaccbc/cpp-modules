@@ -6,7 +6,7 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 00:44:43 by joandre-          #+#    #+#             */
-/*   Updated: 2025/04/16 11:34:07 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/05/05 12:41:11 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ class Zombie {
 	private:
 		std::string name;
 	public:
-		Zombie(std::string);
+		Zombie(std::string name);
 		~Zombie(void);
 		void announce(void) const;
 };
