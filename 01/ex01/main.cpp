@@ -6,7 +6,7 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 01:09:43 by joandre-          #+#    #+#             */
-/*   Updated: 2025/04/16 11:34:55 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/05/05 12:44:25 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 #include "Zombie.hpp"
 
 int	main(void) {
-	int N = HORDE;
-	Zombie* horde = zombieHorde(N, "Tarman");
+	Zombie* horde = zombieHorde(HORDE, "Tarman");
 	if (horde == NULL) return 1;
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < HORDE; i++)
 		horde[i].announce();
 	delete[] horde;
 	return 0;
