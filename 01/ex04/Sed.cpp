@@ -6,7 +6,7 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 00:15:00 by joandre-          #+#    #+#             */
-/*   Updated: 2025/05/01 19:31:20 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/05/06 14:24:49 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	Sed::replace(const std::string& s1, const std::string& s2) {
 	if (!s1.empty())
 	{
 		size_t	i = content.find(s1);
-		while (i != std::string::npos)
+		while (i != content.npos)
 		{
 			content.erase(i, s1.length());
 			content.insert(i, s2);
