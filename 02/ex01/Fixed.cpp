@@ -6,7 +6,7 @@
 /*   By: joandre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 01:44:50 by joandre-          #+#    #+#             */
-/*   Updated: 2025/04/15 01:24:51 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:31:19 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ Fixed::Fixed() : num(0) {
 	std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(const int n = 0) : num(n << BITS) {
+Fixed::Fixed(const int n) : num(n << BITS) {
 	std::cout << "Int constructor called" << std::endl;
 }
 
-Fixed::Fixed(const float n = 0) : num(roundf(n * (1 << BITS))) {
+Fixed::Fixed(const float n) : num(roundf(n * (1 << BITS))) {
 	std::cout << "Float constructor called" << std::endl;
 }
 
