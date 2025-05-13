@@ -20,8 +20,8 @@ WrongCat::WrongCat() : WrongAnimal(), self(NULL) {
 		std::cout << std::endl;
 	}
 	catch (const std::bad_alloc& error) {
-		std::cerr << type << " brain allocation failure: " << error.what();
-		std::cerr << std::endl;
+		std::cout << type << " brain allocation failure: " << error.what();
+		std::cout << std::endl;
 	}
 }
 
@@ -32,8 +32,8 @@ WrongCat::WrongCat(const WrongCat& other) : WrongAnimal(other), self(NULL) {
 		std::cout << std::endl;
 	}
 	catch (const std::bad_alloc& error) {
-		std::cerr << type << " brain allocation failure: " << error.what();
-		std::cerr << std::endl;
+		std::cout << type << " brain allocation failure: " << error.what();
+		std::cout << std::endl;
 	}
 }
 

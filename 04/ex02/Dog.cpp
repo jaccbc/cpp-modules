@@ -20,8 +20,8 @@ Dog::Dog() : Animal(), self(NULL) {
 		std::cout << std::endl;
 	}
 	catch (const std::bad_alloc& error) {
-		std::cerr << type << " brain allocation failure: " << error.what();
-		std::cerr << std::endl;
+		std::cout << type << " brain allocation failure: " << error.what();
+		std::cout << std::endl;
 	}
 }
 
@@ -32,8 +32,8 @@ Dog::Dog(const Dog& other) : Animal(other), self(NULL) {
 		std::cout << std::endl;
 	}
 	catch (const std::bad_alloc& error) {
-		std::cerr << type << " brain allocation failure: " << error.what();
-		std::cerr << std::endl;
+		std::cout << type << " brain allocation failure: " << error.what();
+		std::cout << std::endl;
 	}
 }
 
@@ -46,8 +46,8 @@ Dog&	Dog::operator=(const Dog& other) {
 		}
 		catch (const std::bad_alloc& error) {
 			self = NULL;
-			std::cerr << type << " brain allocation failure: " << error.what();
-			std::cerr << std::endl;
+			std::cout << type << " brain allocation failure: " << error.what();
+			std::cout << std::endl;
 		}
 	}
 	std::cout << type << " has been copied. 🐶";
