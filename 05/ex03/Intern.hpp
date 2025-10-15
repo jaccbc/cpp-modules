@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 19:24:58 by joandre-          #+#    #+#             */
-/*   Updated: 2025/09/16 02:22:57 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/15 21:35:07 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ class ShrubberyCreationForm;
 class RobotomyRequestForm;
 class PresidentialPardonForm;
 
-typedef struct sFormList {
+typedef struct s_FormList {
   const std::string name;
   AForm* (*newForm)(std::string const& target);
-} formList;
+} formList_t;
 
 class Intern {
   private:
-    static const formList formType[3];
+    static const formList_t formType[3];
   public:
     AForm* makeForm(std::string const& form, std::string const& target) const;
     class InvalidFormNameException : public std::exception {

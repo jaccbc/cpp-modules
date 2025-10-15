@@ -6,14 +6,13 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 19:11:01 by joandre-          #+#    #+#             */
-/*   Updated: 2025/09/16 02:36:54 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/15 20:46:19 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AFORM_HPP
 # define AFORM_HPP
 
-#include <iostream>
 #include "Bureaucrat.hpp"
 
 class AForm {
@@ -22,11 +21,12 @@ class AForm {
     const unsigned int sign;
     const unsigned int exec;
     bool signature;
-  public:
+  protected:
     virtual void beExecuted() const = 0;
+  public:
     virtual std::string const& getTarget() const = 0;
     std::string const& getName() const;
-    bool getSignature() const;
+    bool getSign() const;
     unsigned int getSignGrade() const;
     unsigned int getExecGrade() const;
     void beSigned(Bureaucrat const& bureau);
@@ -39,6 +39,10 @@ class AForm {
       public:
         virtual const char* what() const throw();
     };
+    class InvalidGradeException : public std::exception {
+      public:
+        virtual const char* what() const throw();
+    };
     class FormNotSignedException : public std::exception {
       public:
         virtual const char* what() const throw();
@@ -47,6 +51,7 @@ class AForm {
       public:
         virtual const char* what() const throw();
     };
+    AForm();
     AForm(const std::string name, const unsigned int sign, const unsigned int exec);
     AForm(AForm const& other);
     AForm& operator=(AForm const& other);

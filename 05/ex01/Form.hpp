@@ -6,14 +6,13 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 19:11:01 by joandre-          #+#    #+#             */
-/*   Updated: 2025/09/15 19:22:21 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/15 17:47:24 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FORM_HPP
 #define FORM_HPP
 
-#include <iostream>
 #include "Bureaucrat.hpp"
 
 class Form {
@@ -25,7 +24,8 @@ class Form {
   public:
     std::string const& getName() const;
     bool getSign() const;
-    unsigned int getGrade(bool g) const;
+    unsigned int getSignGrade() const;
+    unsigned int getExecGrade() const;
     void beSigned(Bureaucrat const& bureau);
     class GradeTooHighException: public std::exception {
       public:
@@ -35,6 +35,11 @@ class Form {
       public:
         virtual const char* what() const throw();
     };
+    class InvalidGradeException: public std::exception {
+      public:
+        virtual const char* what() const throw();
+    };
+    Form();
     Form(const std::string name, const unsigned int sign, const unsigned int exec);
     Form(Form const& other);
     Form& operator=(Form const& other);

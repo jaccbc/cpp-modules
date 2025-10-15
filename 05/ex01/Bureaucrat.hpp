@@ -6,15 +6,14 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 02:47:18 by joandre-          #+#    #+#             */
-/*   Updated: 2025/09/15 19:20:26 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/15 17:42:15 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUREAUCRAT_HPP
 # define BUREAUCRAT_HPP
 
-#include <string>
-#include <ostream>
+#include <iostream>
 
 class Form;
 
@@ -34,8 +33,14 @@ class Bureaucrat {
       public:
         virtual const char* what() const throw();
     };
+    class InvalidGradeException: public std::exception {
+      public:
+        virtual const char* what() const throw();
+    };
+    Bureaucrat();
     Bureaucrat(std::string const& name, const unsigned int n);
     Bureaucrat(Bureaucrat const& other);
+    Bureaucrat& operator=(Bureaucrat const& other);
     Bureaucrat& operator++();
     Bureaucrat operator++(int);
     Bureaucrat& operator--();

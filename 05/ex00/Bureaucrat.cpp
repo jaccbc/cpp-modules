@@ -6,16 +6,21 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 23:32:07 by joandre-          #+#    #+#             */
-/*   Updated: 2025/09/16 14:55:35 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/15 15:53:29 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
+// returns a constant reference of the object string name
 std::string const& Bureaucrat::getName() const { return name; }
 
+// returns the Bureaucrat grade number
 unsigned int Bureaucrat::getGrade() const { return grade; }
 
+/*
+  virtualized functions from the std::exception object
+*/
 const char* Bureaucrat::GradeTooHighException::what() const throw() {
   return "Grade cannot be higher than 1!";
 }
@@ -24,43 +29,75 @@ const char* Bureaucrat::GradeTooLowException::what() const throw() {
   return "Grade cannot be lower than 150!";
 }
 
+// default object constructor
+Bureaucrat::Bureaucrat() : name("Marvin"), grade(42) {}
+
+/* 
+  parameterized object constructor
+  throws an exception if grade is out of bounds
+*/
 Bureaucrat::Bureaucrat(std::string const& name, const unsigned int n)
   : name(name), grade(n) {
   if (grade > 150) throw Bureaucrat::GradeTooLowException();
   else if (grade < 1) throw Bureaucrat::GradeTooHighException();
 }
 
+/*
+  copy object constructor
+  initializes an object with 'other' object values
+  throws an exception if the grade is out of bounds
+*/
 Bureaucrat::Bureaucrat(Bureaucrat const& other) : name(other.name), grade(other.grade) {
     if (grade > 150) throw Bureaucrat::GradeTooLowException();
     else if (grade < 1) throw Bureaucrat::GradeTooHighException();
 }
 
+// overload of assignment operator ( = )
+Bureaucrat& Bureaucrat::operator=(Bureaucrat const& other) {
+  if (this != &other) {
+    grade = other.grade; }
+  return *this;
+}
+
+/*
+  object grade value manipulation w/
+  overload pre/post and de/increment operators
+  if the grade is not possible to change (out of bounds) throws an exception
+*/
+
+// pre increment ++i
 Bureaucrat& Bureaucrat::operator++() {
   if (grade <= 1) throw Bureaucrat::GradeTooHighException();
   grade -= 1;
   return *this;
 }
-
+// post increment ++i
 Bureaucrat Bureaucrat::operator++(int) {
   if (grade <= 1) throw Bureaucrat::GradeTooHighException();
   Bureaucrat result(name, grade--);
   return result;
 }
-
+// pre decrement --i
 Bureaucrat& Bureaucrat::operator--() {
   if (grade >= 150) throw Bureaucrat::GradeTooLowException();
   grade += 1;
   return *this;
 }
-
+// post decrement i--
 Bureaucrat Bureaucrat::operator--(int) {
   if (grade >= 150) throw Bureaucrat::GradeTooLowException();
   Bureaucrat result(name, grade++);
   return result;
 }
 
+// object ~destructor
 Bureaucrat::~Bureaucrat() {}
 
+/*
+  overload of insertion operator ( << )
+  returns a reference of the std::ostream object
+  with all the Bureaucrat values printed
+*/
 std::ostream& operator<<(std::ostream& out, Bureaucrat const& b) {
   return out << b.getName() << ", bureaucrat grade " << b.getGrade() << ".";
 }

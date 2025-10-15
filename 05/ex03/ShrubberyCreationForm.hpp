@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 23:09:20 by joandre-          #+#    #+#             */
-/*   Updated: 2025/09/16 01:57:24 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/15 17:10:29 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ class ShrubberyCreationForm : public AForm {
       public:
         virtual const char* what() const throw();
     };
+    ShrubberyCreationForm();
     ShrubberyCreationForm(std::string const& target);
     ShrubberyCreationForm(ShrubberyCreationForm const& other);
     ShrubberyCreationForm& operator=(ShrubberyCreationForm const& other);

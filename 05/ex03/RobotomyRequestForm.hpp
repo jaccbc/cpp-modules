@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 23:09:20 by joandre-          #+#    #+#             */
-/*   Updated: 2025/09/15 17:49:38 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/15 17:10:01 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ class RobotomyRequestForm : public AForm {
     unsigned int getExecGrade() const;
     std::string const& getTarget() const;
     void beExecuted() const;
+    RobotomyRequestForm();
     RobotomyRequestForm(std::string const& target);
     RobotomyRequestForm(RobotomyRequestForm const& other);
     RobotomyRequestForm& operator=(RobotomyRequestForm const& other);

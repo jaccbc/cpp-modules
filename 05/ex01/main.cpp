@@ -6,14 +6,19 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 02:46:29 by joandre-          #+#    #+#             */
-/*   Updated: 2025/09/01 04:39:33 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/15 15:47:44 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
-#include <iostream>
 
+/*
+  tries to initialize 2 objects (Bureaucrat && Form)
+  uses the Bureaucrat object to sign the Form
+  throws an exception if any value is out of bounds
+  
+*/
 int main() {
   std::cout << "Module 05 | Exercise 01" << std::endl;
   std::string b = "Marvin";

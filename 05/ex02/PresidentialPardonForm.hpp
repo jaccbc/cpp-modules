@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 23:09:20 by joandre-          #+#    #+#             */
-/*   Updated: 2025/09/15 17:26:05 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/15 16:48:38 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ class PresidentialPardonForm : public AForm {
     unsigned int getExecGrade() const;
     std::string const& getTarget() const;
     void beExecuted() const;
+    PresidentialPardonForm();
     PresidentialPardonForm(std::string const& target);
     PresidentialPardonForm(PresidentialPardonForm const& other);
     PresidentialPardonForm& operator=(PresidentialPardonForm const& other);
