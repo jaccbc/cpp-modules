@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 18:31:39 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/16 13:45:05 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/18 21:02:20 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,34 @@ static void printImpossible() {
 }
 
 /*
+  finds the first dot ('.') in the string
+  which delimits the precision count
+  if no dot found returns 1 as the precision number
+  iterates from the end of the string to the first dot
+  first loop ignores the last sequence of zeros
+  second loop measures precision
+*/
+static size_t findPrecision(scal_t conv) {
+  size_t p = 0;
+  size_t d = conv.numb.find('.');
+  if (d == std::string::npos) return 1;
+  size_t i = conv.numb.size() - 1;
+  if (conv.type == FLOAT) --i;
+  while (i > d && conv.numb[i] == '0') --i;
+  while (i > d) {
+	++p;
+	--i;
+  }
+  if (p) return p;
+  return 1;
+}
+
+/*
   verify the flags for each scalar conversion
   CHAR/INT v[0], FLOAT v[1] and DOUBLE v[2]
   prints a value if true and impossible/Non displayable if false
 */
-static void printConversion(t_scal conv) {
+static void printConversion(scal_t conv) {
   std::cout << "char: ";
   if (conv.v[0] && conv.value >= std::numeric_limits<char>::min()
     && conv.value <= std::numeric_limits<char>::max()) {
@@ -93,6 +116,7 @@ static void printConversion(t_scal conv) {
   std::cout << std::fixed;
   if (conv.type == CHAR || conv.type == INT)
     std::cout << std::setprecision(1);
+  else std::cout << std::setprecision(findPrecision(conv));
   std::cout << "float: ";
   if (conv.v[1]) std::cout << static_cast<float>(conv.value) << "f";
   else std::cout << "impossible";
@@ -108,7 +132,8 @@ static void printConversion(t_scal conv) {
 
 // handles the string literal as a CHAR scalar type conversion
 static void handleChar(std::string const& s) {
-  t_scal conv = {
+  scal_t conv = {
+	s,
     CHAR,
     static_cast<double>(s.at(1)),
     { true, true, true } 
@@ -123,7 +148,7 @@ static void handleChar(std::string const& s) {
   prints impossible if an exception is catch or if the number goes out of bounds
 */
 static void handleInt(std::string const& s) {
-  t_scal conv = { INT, 0, { true, true, true } };
+  scal_t conv = { s, INT, 0, { true, true, true } };
   std::istringstream iss(s);
   iss.exceptions(std::ios::failbit);
   try { iss >> conv.value; }
@@ -147,7 +172,7 @@ static void handleInt(std::string const& s) {
   the bool flag 'conv.v[0]' is modified to false
 */
 static void handleFloat(std::string const& s) {
-  t_scal conv = { FLOAT, 0, { true, true, true } };
+  scal_t conv = { s, FLOAT, 0, { true, true, true } };
   std::istringstream iss(s);
   iss.exceptions(std::ios::failbit);
   try { iss >> conv.value; }
@@ -174,7 +199,7 @@ static void handleFloat(std::string const& s) {
   the bool flag 'conv.v[0]' && 'conv.v[1]' is modified to false
 */
 static void handleDouble(std::string const& s) {
-  t_scal conv = { DOUBLE, 0, { true, true, true } };
+  scal_t conv = { s, DOUBLE, 0, { true, true, true } };
   std::istringstream iss(s);
   iss.exceptions(std::ios::failbit);
   try { iss >> conv.value; }
