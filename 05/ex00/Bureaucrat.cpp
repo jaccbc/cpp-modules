@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 23:32:07 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/15 15:53:29 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:36:20 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ Bureaucrat& Bureaucrat::operator++() {
   grade -= 1;
   return *this;
 }
-// post increment ++i
+// post increment i++
 Bureaucrat Bureaucrat::operator++(int) {
   if (grade <= 1) throw Bureaucrat::GradeTooHighException();
   Bureaucrat result(name, grade--);
