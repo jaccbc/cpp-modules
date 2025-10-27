@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 19:44:04 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/15 20:53:28 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/27 23:06:54 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,20 @@ unsigned int Form::getExecGrade() const { return exec; }
 
 /*
   verifies if the Bureuacrat's and Form's grade is within valid ranges
-  and if the Form's grade is too high to signed by the Bureaucrat
+  and if the Form's grade is too high to be signed by the Bureaucrat
   throws an exception if any of these conditions are met
   otherwise signs the Form
 */
 void Form::beSigned(Bureaucrat const& bureau) {
-  if (sign > 150 || exec > 150 || sign < 1 || exec < 1)
-    throw Form::InvalidGradeException();
-  else if (bureau.getGrade() < 1 || bureau.getGrade() > 150)
-    throw Bureaucrat::InvalidGradeException();
-  if (bureau.getGrade() > sign || bureau.getGrade() > exec)
+  if (sign > 150 || exec > 150)
+    throw Form::GradeTooLowException();
+  else if (sign < 1 || exec < 1)
+    throw Form::GradeTooHighException();
+  if (bureau.getGrade() < 1)
+    throw Bureaucrat::GradeTooHighException();
+  else if (bureau.getGrade() > 150)
+    throw Bureaucrat::GradeTooLowException();
+  if (bureau.getGrade() > sign)
     throw Form::GradeTooHighException();
   signature = true;
 }
@@ -47,13 +51,13 @@ const char* Form::GradeTooHighException::what() const throw() {
   return "Form grade is too high!"; }
 
 const char* Form::GradeTooLowException::what() const throw() {
-  return "Form grade is too low!"; }
+  return "Form grade is too low"; }
 
 const char* Form::InvalidGradeException::what() const throw() {
   return "Form grade is invalid (out of bounds)!"; }
 
 // default object constructor
-Form::Form() : name("Exam"), sign(42), exec(42), signature(false) {}
+Form::Form() : name("Exam"), sign(42), exec(24), signature(false) {}
 
 /* 
   parameterized object constructor
@@ -96,5 +100,5 @@ std::ostream& operator<<(std::ostream& out, Form const& form) {
   std::string signature(form.getSign() ? "true" : "false");
   return out << "** FORM **\nNAME: " << form.getName()
     << "\nSIGNATURE: " << signature << "\nSIGN GRADE: " << form.getSignGrade()
-    << "\nEXEC GRADE: " << form.getExecGrade() << "\n------------";
+    << "\nEXEC GRADE: " << form.getExecGrade() << "\n**********";
 }

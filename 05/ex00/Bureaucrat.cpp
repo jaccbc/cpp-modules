@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 23:32:07 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/23 16:36:20 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/27 19:57:06 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ unsigned int Bureaucrat::getGrade() const { return grade; }
   virtualized functions from the std::exception object
 */
 const char* Bureaucrat::GradeTooHighException::what() const throw() {
-  return "Grade cannot be higher than 1!";
+  return "Bureaucrat grade cannot be higher than 1!";
 }
 
 const char* Bureaucrat::GradeTooLowException::what() const throw() {
-  return "Grade cannot be lower than 150!";
+  return "Bureaucrat grade cannot be lower than 150!";
 }
 
 // default object constructor

@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 02:46:29 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/15 15:47:44 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/27 23:28:52 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,16 @@
 */
 int main() {
   std::cout << "Module 05 | Exercise 01" << std::endl;
-  std::string b = "Marvin";
-  std::string f = "CC";
+
   try {
-    Bureaucrat master(b, 121);
-    Form test(f, 1, 10);
-    master.signForm(test);
+    Bureaucrat master(std::string("Trillian"), 11);
+    Form exam(std::string("Hitchhiker"), 10, 1);
     std::cout << master << std::endl;
-    std::cout << test << std::endl;
+    std::cout << exam << std::endl;
+    master.signForm(exam);
   }
   catch (std::exception &e) {
-    std::cout << e.what() << std::endl; 
+    std::cout << e.what() << std::endl;
   }
   return 0;
 }
