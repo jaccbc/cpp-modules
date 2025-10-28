@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 02:47:18 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/15 15:51:49 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/28 10:13:01 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define BUREAUCRAT_HPP
 
 #include <iostream>
+
+#define MAX_GRADE 1
+#define MIN_GRADE 150
 
 class Bureaucrat {
   private:

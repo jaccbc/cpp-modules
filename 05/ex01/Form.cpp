@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 19:44:04 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/27 23:06:54 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/28 10:22:38 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ unsigned int Form::getExecGrade() const { return exec; }
   otherwise signs the Form
 */
 void Form::beSigned(Bureaucrat const& bureau) {
-  if (sign > 150 || exec > 150)
+  if (sign > MIN_GRADE || exec > MIN_GRADE)
     throw Form::GradeTooLowException();
-  else if (sign < 1 || exec < 1)
+  else if (sign < MAX_GRADE || exec < MAX_GRADE)
     throw Form::GradeTooHighException();
-  if (bureau.getGrade() < 1)
+  if (bureau.getGrade() < MAX_GRADE)
     throw Bureaucrat::GradeTooHighException();
-  else if (bureau.getGrade() > 150)
+  else if (bureau.getGrade() > MIN_GRADE)
     throw Bureaucrat::GradeTooLowException();
   if (bureau.getGrade() > sign)
     throw Form::GradeTooHighException();
@@ -53,9 +53,6 @@ const char* Form::GradeTooHighException::what() const throw() {
 const char* Form::GradeTooLowException::what() const throw() {
   return "Form grade is too low"; }
 
-const char* Form::InvalidGradeException::what() const throw() {
-  return "Form grade is invalid (out of bounds)!"; }
-
 // default object constructor
 Form::Form() : name("Exam"), sign(42), exec(24), signature(false) {}
 
@@ -65,8 +62,8 @@ Form::Form() : name("Exam"), sign(42), exec(24), signature(false) {}
 */
 Form::Form(const std::string name, const unsigned int sign, const unsigned int exec) 
   : name(name), sign(sign), exec(exec), signature(false) {
-  if (sign > 150 || exec > 150) throw Form::GradeTooLowException();
-  if (sign < 1 || exec < 1) throw Form::GradeTooHighException();
+  if (sign > MIN_GRADE || exec > MIN_GRADE) throw Form::GradeTooLowException();
+  if (sign < MAX_GRADE || exec < MAX_GRADE) throw Form::GradeTooHighException();
 }
 
 /*
@@ -76,8 +73,8 @@ Form::Form(const std::string name, const unsigned int sign, const unsigned int e
 */
 Form::Form(Form const& other) : name(other.name), 
     sign(other.sign), exec(other.exec), signature(false) {
-  if (sign > 150 || exec > 150) throw Form::GradeTooLowException();
-  if (sign < 1 || exec < 1) throw Form::GradeTooHighException();
+  if (sign > MIN_GRADE || exec > MIN_GRADE) throw Form::GradeTooLowException();
+  if (sign < MAX_GRADE || exec < MAX_GRADE) throw Form::GradeTooHighException();
 }
 
 // overload of assignment operator ( = )
@@ -98,7 +95,7 @@ Form::~Form() {}
 */
 std::ostream& operator<<(std::ostream& out, Form const& form) {
   std::string signature(form.getSign() ? "true" : "false");
-  return out << "** FORM **\nNAME: " << form.getName()
+  return out << "** FORM CONTENT **\nNAME: " << form.getName()
     << "\nSIGNATURE: " << signature << "\nSIGN GRADE: " << form.getSignGrade()
-    << "\nEXEC GRADE: " << form.getExecGrade() << "\n**********";
+    << "\nEXEC GRADE: " << form.getExecGrade() << "\n******************";
 }

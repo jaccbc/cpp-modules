@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 19:11:01 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/15 17:47:24 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/28 10:20:33 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@ class Form {
         virtual const char* what() const throw();
     };
     class GradeTooLowException: public std::exception {
-      public:
-        virtual const char* what() const throw();
-    };
-    class InvalidGradeException: public std::exception {
       public:
         virtual const char* what() const throw();
     };

@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 19:44:04 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/15 20:58:16 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/28 11:42:31 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ unsigned int AForm::getSignGrade() const { return sign; }
 unsigned int AForm::getExecGrade() const { return exec; }
 
 /*
-  first verifies if the form is already signed
+  verifies if the form is already signed
   checks both objects grade boundaries
   and if the Bureaucrat has enough grade to sign the form
   throws an exception if any grade is out of bound
@@ -33,11 +33,15 @@ unsigned int AForm::getExecGrade() const { return exec; }
 */
 void AForm::beSigned(Bureaucrat const& bureau) {
   if (signature) throw AForm::FormAlreadySignedException();
-  if (sign > 150 || exec > 150 || sign < 1 || exec < 1)
-    throw AForm::InvalidGradeException();
-  else if (bureau.getGrade() < 1 || bureau.getGrade() > 150)
-    throw Bureaucrat::InvalidGradeException();
-  if (bureau.getGrade() > sign || bureau.getGrade() > exec)
+  if (sign > MIN_GRADE)
+    throw AForm::GradeTooLowException();
+  else if (sign < MAX_GRADE)
+    throw AForm::GradeTooHighException();
+  if (bureau.getGrade() < MAX_GRADE)
+    throw Bureaucrat::GradeTooHighException();
+  else if (bureau.getGrade() > MIN_GRADE)
+    throw Bureaucrat::GradeTooLowException();
+  if (bureau.getGrade() > sign)
     throw AForm::GradeTooHighException();
   signature = true;
 }
@@ -50,9 +54,11 @@ void AForm::beSigned(Bureaucrat const& bureau) {
 */
 void AForm::execute(Bureaucrat const& executor) const {
   if (!signature) throw AForm::FormNotSignedException();
-  if (executor.getGrade() < 1 || executor.getGrade() > 150)
-    throw Bureaucrat::InvalidGradeException();
-  if (executor.getGrade() > sign || executor.getGrade() > exec)
+  if (executor.getGrade() < MAX_GRADE)
+    throw Bureaucrat::GradeTooHighException();
+  else if (executor.getGrade() > MIN_GRADE)
+    throw Bureaucrat::GradeTooLowException();
+  if (executor.getGrade() > exec)
     throw AForm::GradeTooHighException();
   beExecuted();
 }
@@ -61,22 +67,19 @@ void AForm::execute(Bureaucrat const& executor) const {
   virtualized function from the std::exception object
 */
 const char* AForm::GradeTooHighException::what() const throw() {
-  return "Grade is too high!"; }
+  return "Base form grade is too high!"; }
 
 const char* AForm::GradeTooLowException::what() const throw() {
-  return "Grade is too low!"; }
-
-const char* AForm::InvalidGradeException::what() const throw() {
-  return "Grade is invalid (out of bounds)!"; }
+  return "Base form grade is too low!"; }
 
 const char* AForm::FormNotSignedException::what() const throw() {
-  return "This form is not signed yet!"; }
+  return "Base form is not signed yet!"; }
 
 const char* AForm::FormAlreadySignedException::what() const throw() {
-  return "This form is already signed!"; }
+  return "Base form is already signed!"; }
 
 // default object constructor
-AForm::AForm() : name("AExam"), sign(42), exec(42), signature(false) {}
+AForm::AForm() : name("Exam"), sign(42), exec(24), signature(false) {}
 
 /*
   parameterized object constructor
@@ -84,8 +87,8 @@ AForm::AForm() : name("AExam"), sign(42), exec(42), signature(false) {}
 */
 AForm::AForm(const std::string name, const unsigned int sign, const unsigned int exec) 
   : name(name), sign(sign), exec(exec), signature(false) {
-  if (sign > 150 || exec > 150) throw AForm::GradeTooLowException();
-  if (sign < 1 || exec < 1) throw AForm::GradeTooHighException();
+  if (sign > MIN_GRADE || exec > MIN_GRADE) throw AForm::GradeTooLowException();
+  if (sign < MAX_GRADE || exec < MAX_GRADE) throw AForm::GradeTooHighException();
 }
 
 /*
@@ -111,10 +114,10 @@ AForm::~AForm() {}
   with all the AForm values printed
 */
 std::ostream& operator<<(std::ostream& out, AForm const& form) {
-  return out << "** AFORM **"
+  return out << "** BASE FORM CONTENT **"
     << "\nNAME: " << form.getName()
     << "\nTARGET: " << form.getTarget()
     << "\nSIGNATURE: " << std::string(form.getSign() ? "true" : "false")
     << "\nSIGN GRADE: " << form.getSignGrade()
-    << "\nEXEC GRADE: " << form.getExecGrade() << "\n------------";
+    << "\nEXEC GRADE: " << form.getExecGrade() << "\n***********************";
 }

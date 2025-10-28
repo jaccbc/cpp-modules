@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 23:32:07 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/27 23:25:08 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/28 10:16:49 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,6 @@ const char* Bureaucrat::GradeTooLowException::what() const throw() {
   return "Bureaucrat grade cannot be lower than 150!";
 }
 
-const char* Bureaucrat::InvalidGradeException::what() const throw() {
-  return "Bureaucrat grade is invalid (out of bounds range)!";
-}
-
 // default object constructor
 Bureaucrat::Bureaucrat() : name("Marvin"), grade(42) {}
 
@@ -60,8 +56,8 @@ Bureaucrat::Bureaucrat() : name("Marvin"), grade(42) {}
 */
 Bureaucrat::Bureaucrat(std::string const& name, const unsigned int n)
   : name(name), grade(n) {
-  if (grade > 150) throw Bureaucrat::GradeTooLowException();
-  else if (grade < 1) throw Bureaucrat::GradeTooHighException();
+  if (grade > MIN_GRADE) throw Bureaucrat::GradeTooLowException();
+  else if (grade < MAX_GRADE) throw Bureaucrat::GradeTooHighException();
 }
 
 /*
@@ -70,8 +66,8 @@ Bureaucrat::Bureaucrat(std::string const& name, const unsigned int n)
   throws an exception if the grade is out of bounds
 */
 Bureaucrat::Bureaucrat(Bureaucrat const& other) : name(other.name), grade(other.grade) {
-    if (grade > 150) throw Bureaucrat::GradeTooLowException();
-    else if (grade < 1) throw Bureaucrat::GradeTooHighException();
+    if (grade > MIN_GRADE) throw Bureaucrat::GradeTooLowException();
+    else if (grade < MAX_GRADE) throw Bureaucrat::GradeTooHighException();
 }
 
 // overload of assignment operator ( = )
@@ -89,28 +85,28 @@ Bureaucrat& Bureaucrat::operator=(Bureaucrat const& other) {
 
 // pre increment ++i
 Bureaucrat& Bureaucrat::operator++() {
-  if (grade <= 1) throw Bureaucrat::GradeTooHighException();
+  if (grade <= MAX_GRADE) throw Bureaucrat::GradeTooHighException();
   grade -= 1;
   return *this;
 }
 
 // post increment i++
 Bureaucrat Bureaucrat::operator++(int) {
-  if (grade <= 1) throw Bureaucrat::GradeTooHighException();
+  if (grade <= MAX_GRADE) throw Bureaucrat::GradeTooHighException();
   Bureaucrat result(name, grade--);
   return result;
 }
 
 // pre decrement --i
 Bureaucrat& Bureaucrat::operator--() {
-  if (grade >= 150) throw Bureaucrat::GradeTooLowException();
+  if (grade >= MIN_GRADE) throw Bureaucrat::GradeTooLowException();
   grade += 1;
   return *this;
 }
 
 // post decrement i--
 Bureaucrat Bureaucrat::operator--(int) {
-  if (grade >= 150) throw Bureaucrat::GradeTooLowException();
+  if (grade >= MIN_GRADE) throw Bureaucrat::GradeTooLowException();
   Bureaucrat result(name, grade++);
   return result;
 }

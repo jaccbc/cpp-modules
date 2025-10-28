@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 22:59:13 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/15 21:33:49 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/28 13:35:54 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ const char* Intern::InvalidFormNameException::what() const throw() {
 Intern::Intern() {}
 
 // copy object constructor
-Intern::Intern(Intern const& other) { (void)other; }
+Intern::Intern(Intern const& other) { static_cast<void>(other); }
 
 // overload of assignment operator ( = )
 Intern& Intern::operator=(Intern const& other) {
-  (void)other;
+  static_cast<void>(other);
   return *this;
 }
 

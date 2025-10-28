@@ -6,7 +6,7 @@
 #    By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/13 23:11:13 by joandre-          #+#    #+#              #
-#    Updated: 2025/09/15 16:57:18 by joandre-         ###   ########.fr        #
+#    Updated: 2025/10/28 10:56:08 by joandre-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ clean:
 	rm -rf $(OBJ)
 
 fclean: clean
-	rm -rf $(NAME)
+	rm -rf $(NAME) $(shell ls | grep _shrubbery)
 
 re: fclean all
 
