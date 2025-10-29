@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 19:44:04 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/28 11:42:31 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/29 13:30:55 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ bool AForm::getSign() const { return signature; }
 // returns the number of the grade to sign
 unsigned int AForm::getSignGrade() const { return sign; }
 
-//returns the number of the grade to execute
+// returns the number of the grade to execute
 unsigned int AForm::getExecGrade() const { return exec; }
 
 /*
-  verifies if the form is already signed
-  checks both objects grade boundaries
-  and if the Bureaucrat has enough grade to sign the form
-  throws an exception if any grade is out of bound
-  otherwise signs the form
+  check if the form is already signed
+  checks grade boundaries of both objects (AForm && Bureaucrat)
+  verify if the Bureaucrat has enough grade to sign the form
+  throws an excepion if any check fails
+  signs the form (signature = true) if requirements are met
 */
 void AForm::beSigned(Bureaucrat const& bureau) {
   if (signature) throw AForm::FormAlreadySignedException();
@@ -49,8 +49,7 @@ void AForm::beSigned(Bureaucrat const& bureau) {
 /*
   verifies if the form is signed
   and if Bureaucrat's grade is within valid ranges
-  throws an exception when any of these conditions are met
-  otherwise proceeds to execute the form
+  otherwise proceeds to execute the pure virtual function
 */
 void AForm::execute(Bureaucrat const& executor) const {
   if (!signature) throw AForm::FormNotSignedException();
@@ -99,7 +98,7 @@ AForm::AForm(const std::string name, const unsigned int sign, const unsigned int
 AForm::AForm(AForm const& other) : name(other.name), 
     sign(other.sign), exec(other.exec), signature(false) {}
 
-// overload of assignment operator ( = )
+// copy assignment operator
 AForm& AForm::operator=(AForm const& other) {
   if (this != &other) signature = other.signature;
   return *this;
@@ -119,5 +118,6 @@ std::ostream& operator<<(std::ostream& out, AForm const& form) {
     << "\nTARGET: " << form.getTarget()
     << "\nSIGNATURE: " << std::string(form.getSign() ? "true" : "false")
     << "\nSIGN GRADE: " << form.getSignGrade()
-    << "\nEXEC GRADE: " << form.getExecGrade() << "\n***********************";
+    << "\nEXEC GRADE: " << form.getExecGrade()
+	<< "\n***********************";
 }

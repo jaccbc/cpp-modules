@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 00:02:31 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/15 17:06:15 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/29 13:24:58 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ PresidentialPardonForm::PresidentialPardonForm(std::string const& target)
 PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm const& other)
   : AForm("Presidential", other.getSignGrade(), other.getExecGrade()), target(other.getTarget()) {}
 
-// overload of assignment operator ( = )
+// copy assignment operator
 PresidentialPardonForm& PresidentialPardonForm::operator=(PresidentialPardonForm const& other) {
   if (this != &other) target = other.getTarget();
   return *this;

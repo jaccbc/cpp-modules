@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 19:44:04 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/28 10:22:38 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/29 13:09:04 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ Form::Form(Form const& other) : name(other.name),
   if (sign < MAX_GRADE || exec < MAX_GRADE) throw Form::GradeTooHighException();
 }
 
-// overload of assignment operator ( = )
+// copy assignment operator 
 Form& Form::operator=(const Form& other) {
   if (this != &other) {
     signature = other.signature;
@@ -95,7 +95,10 @@ Form::~Form() {}
 */
 std::ostream& operator<<(std::ostream& out, Form const& form) {
   std::string signature(form.getSign() ? "true" : "false");
-  return out << "** FORM CONTENT **\nNAME: " << form.getName()
-    << "\nSIGNATURE: " << signature << "\nSIGN GRADE: " << form.getSignGrade()
-    << "\nEXEC GRADE: " << form.getExecGrade() << "\n******************";
+  return out << "** FORM CONTENT **\n"
+	"NAME: " << form.getName()
+    << "\nSIGNATURE: " << signature
+	<< "\nSIGN GRADE: " << form.getSignGrade()
+    << "\nEXEC GRADE: " << form.getExecGrade()
+	<< "\n******************";
 }

@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 00:02:31 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/28 12:10:05 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/29 13:33:57 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ std::string const& RobotomyRequestForm::getTarget() const { return target; }
 /*
   outputs a message with the object target string
   this function is called by the base function AForm
-  randomizes the output by verifying if the number return by rand() is pair
   seeds the random number genarator with the current time of execution
+  randomizes the output by verifying if the number return by rand() is pair
 */
 void RobotomyRequestForm::beExecuted() const {
   std::srand(std::time(NULL));
@@ -59,7 +59,7 @@ RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const& other)
   : AForm("Robotomy", other.getSignGrade(), other.getExecGrade()),
     target(other.getTarget()) {}
 
-// overload of assignment operator ( = )
+// copy assignment operator
 RobotomyRequestForm& RobotomyRequestForm::operator=(RobotomyRequestForm const& other) {
   if (this != &other) target = other.getTarget();
   return *this;

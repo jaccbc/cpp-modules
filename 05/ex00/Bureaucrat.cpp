@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 23:32:07 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/28 10:12:28 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/29 13:03:51 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ Bureaucrat::Bureaucrat(Bureaucrat const& other) : name(other.name), grade(other.
     else if (grade < MAX_GRADE) throw Bureaucrat::GradeTooHighException();
 }
 
-// overload of assignment operator ( = )
+// copy assignment operator 
 Bureaucrat& Bureaucrat::operator=(Bureaucrat const& other) {
   if (this != &other) {
     grade = other.grade; }

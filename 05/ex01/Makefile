@@ -6,13 +6,13 @@
 #    By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/13 23:11:13 by joandre-          #+#    #+#              #
-#    Updated: 2025/08/28 20:50:25 by joandre-         ###   ########.fr        #
+#    Updated: 2025/10/29 13:04:17 by joandre-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = Bureaucrat
+NAME = Form
 SRC = main.cpp Bureaucrat.cpp Form.cpp
 OBJ = $(SRC:.cpp=.o)
 

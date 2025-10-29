@@ -6,13 +6,13 @@
 #    By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/13 23:11:13 by joandre-          #+#    #+#              #
-#    Updated: 2025/10/28 10:56:08 by joandre-         ###   ########.fr        #
+#    Updated: 2025/10/29 13:52:12 by joandre-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = Bureaucrat
+NAME = Forms
 SRC = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp \
       RobotomyRequestForm.cpp PresidentialPardonForm.cpp
 OBJ = $(SRC:.cpp=.o)
