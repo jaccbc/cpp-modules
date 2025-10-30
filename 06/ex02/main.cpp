@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 01:16:44 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/16 17:20:37 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/30 17:58:20 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,16 @@
 #include "C.hpp"
 
 /*
-  allocates a string in the heap and uses his memory address
-  to seed the rand() function
-  assigns 3 uint16_t values to a, b, c
-  the greater value win and returns it's associated object
+  first seeds srand() with the current time
+  afterwards it seeds srand() with int16_t value previously assigned by rand()
+  the greater value win and returns its associated object
 */
 Base* generate(void) {
-  std::string* ram = new std::string("I seed Random Access Memory");
-  if (!ram) {
-    std::cout << "You have no RAM!" << std::endl;
-    return NULL;
-  }
-  uintptr_t addr = reinterpret_cast<uintptr_t>(&ram);
-  std::srand(addr);
-  delete ram;
+  std::srand(time(NULL));
   int16_t a = std::rand();
-  std::srand(addr / a);
+  std::srand(a);
   int16_t b = std::rand();
-  std::srand(addr / b);
+  std::srand(b);
   int16_t c = std::rand();
   if (a >= b && a >= c) return new A();
   else if (b >= a && b >= c) return new B();
@@ -64,18 +56,19 @@ void identify(Base* p) {
 */
 void identify(Base& p) {
   std::cout << "Object referenced by p = ";
+  Base& t = p;
   try {
-    dynamic_cast<A&>(p);
+    t = dynamic_cast<A&>(p);
     std::cout << "A";
   }
   catch (std::exception &e) {
     try {
-      dynamic_cast<B&>(p);
+      t = dynamic_cast<B&>(p);
       std::cout << "B";
     }
     catch (std::exception &e) {
       try {
-        dynamic_cast<C&>(p);
+        t = dynamic_cast<C&>(p);
         std::cout << "C";
       }
       catch (std::exception &e) {
