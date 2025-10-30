@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 18:31:39 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/18 21:02:20 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/10/30 13:56:13 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static bool isInt(std::string const& s) {
 /*
   checks if the string literal is of fractional type (FLOAT / DOUBLE)
   the checks are based on the enum scalar type given as an argument
-  to be of fractional type needs to have a sigle dot between numbers
+  to be a type DOUBLE it needs to have a sigle dot
   floats need to end with 'f'
 */
 static bool isFractional(scalar type, std::string const& s) {
@@ -58,7 +58,7 @@ static bool isFractional(scalar type, std::string const& s) {
     if (!std::isdigit(static_cast<unsigned char>(s.at(i++))))
       return false;
   }
-  if (!dot) return false;
+  if (type == DOUBLE && !dot) return false;
   return true;
 }
 
@@ -73,7 +73,7 @@ static void printImpossible() {
 /*
   finds the first dot ('.') in the string
   which delimits the precision count
-  if no dot found returns 1 as the precision number
+  if no dot is found returns 1 as the precision number
   iterates from the end of the string to the first dot
   first loop ignores the last sequence of zeros
   second loop measures precision
@@ -180,7 +180,7 @@ static void handleFloat(std::string const& s) {
     printImpossible();
     return ;
   }
-  if (conv.value < std::numeric_limits<float>::min()
+  if (conv.value < -std::numeric_limits<float>::max()
     || conv.value > std::numeric_limits<float>::max()) {
     printImpossible();
     return;
@@ -210,7 +210,7 @@ static void handleDouble(std::string const& s) {
   if (conv.value < std::numeric_limits<int>::min()
     || conv.value > std::numeric_limits<int>::max())
     conv.v[0] = false;
-  if (conv.value < std::numeric_limits<float>::min()
+  if (conv.value < -std::numeric_limits<float>::max()
     || conv.value > std::numeric_limits<float>::max())
     conv.v[1] = false;
   printConversion(conv);
@@ -241,7 +241,7 @@ ScalarConverter::ScalarConverter() {}
 ScalarConverter::ScalarConverter(ScalarConverter const& other) {
   static_cast<void>(other); }
 
-// overload of assignment operator ( = )
+// copy assignment operator
 ScalarConverter& ScalarConverter::operator=(ScalarConverter const& other) {
   if (this != &other) *this = other;
   return *this;
