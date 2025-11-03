@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 18:31:39 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/30 13:56:13 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/11/03 13:07:10 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool isChar(std::string const& s) {
 static bool isInt(std::string const& s) {
   size_t i = 0;
   if (s[i] == '+' || s[i] == '-') i = 1;
-  if (!s[i]) return false;
+  if (i == s.size()) return false;
   while (std::isdigit(static_cast<unsigned char>(s[i])))
     ++i;
   if (s[i]) return false;
@@ -86,8 +86,8 @@ static size_t findPrecision(scal_t conv) {
   if (conv.type == FLOAT) --i;
   while (i > d && conv.numb[i] == '0') --i;
   while (i > d) {
-	++p;
-	--i;
+  ++p;
+  --i;
   }
   if (p) return p;
   return 1;
@@ -133,7 +133,7 @@ static void printConversion(scal_t conv) {
 // handles the string literal as a CHAR scalar type conversion
 static void handleChar(std::string const& s) {
   scal_t conv = {
-	s,
+    s,
     CHAR,
     static_cast<double>(s.at(1)),
     { true, true, true } 
@@ -143,20 +143,12 @@ static void handleChar(std::string const& s) {
 
 /*
   handles the string literal as an INT scalar type conversion
-  uses the std::istringstream object to convert the string literal to a number
-  sets the failbit value to catch exceptions from the stream conversion
-  prints impossible if an exception is catch or if the number goes out of bounds
+  uses the strtod to convert the string literal to a number
 */
 static void handleInt(std::string const& s) {
   scal_t conv = { s, INT, 0, { true, true, true } };
-  std::istringstream iss(s);
-  iss.exceptions(std::ios::failbit);
-  try { iss >> conv.value; }
-  catch (std::ios_base::failure& e) {
-    printImpossible();
-    return;
-  }
-  if (conv.value < std::numeric_limits<int>::min()
+  conv.value = std::strtod(s.c_str(), NULL);
+  if (errno == ERANGE || conv.value < std::numeric_limits<int>::min()
     || conv.value > std::numeric_limits<int>::max()) {
     printImpossible();
     return;
@@ -166,21 +158,14 @@ static void handleInt(std::string const& s) {
 
 /*
   handles the string literal as a FLOAT scalar type conversion
-  uses the std::istringstream object to convert the string literal to a number
-  sets the failbit value to catch exceptions from the stream conversion
+  uses the strtod() to convert the string literal to a number
   if the conversion to INT goes out of bounds,
   the bool flag 'conv.v[0]' is modified to false
 */
 static void handleFloat(std::string const& s) {
   scal_t conv = { s, FLOAT, 0, { true, true, true } };
-  std::istringstream iss(s);
-  iss.exceptions(std::ios::failbit);
-  try { iss >> conv.value; }
-  catch (std::ios_base::failure& e) {
-    printImpossible();
-    return ;
-  }
-  if (conv.value < -std::numeric_limits<float>::max()
+  conv.value = std::strtod(s.c_str(), NULL);
+  if (errno == ERANGE || conv.value < -std::numeric_limits<float>::max()
     || conv.value > std::numeric_limits<float>::max()) {
     printImpossible();
     return;
@@ -193,40 +178,40 @@ static void handleFloat(std::string const& s) {
 
 /*
   handles the string literal as a DOUBLE scalar type conversion
-  uses the std::istringstream object to convert the string literal to a number
-  sets the failbit value to catch exceptions from the stream conversion
+  uses the strtod() to convert the string literal to a number
   if the conversion to INT and FLOAT goes out of bounds,
   the bool flag 'conv.v[0]' && 'conv.v[1]' is modified to false
 */
 static void handleDouble(std::string const& s) {
   scal_t conv = { s, DOUBLE, 0, { true, true, true } };
-  std::istringstream iss(s);
-  iss.exceptions(std::ios::failbit);
-  try { iss >> conv.value; }
-  catch (std::ios_base::failure& e) {
+  conv.value = std::strtod(s.c_str(), NULL);
+  if (errno == ERANGE || conv.value < -std::numeric_limits<double>::max()
+    || conv.value > std::numeric_limits<double>::max()) {
     printImpossible();
     return ;
   }
-  if (conv.value < std::numeric_limits<int>::min()
-    || conv.value > std::numeric_limits<int>::max())
-    conv.v[0] = false;
   if (conv.value < -std::numeric_limits<float>::max()
     || conv.value > std::numeric_limits<float>::max())
     conv.v[1] = false;
+  if (conv.value < std::numeric_limits<int>::min()
+    || conv.value > std::numeric_limits<int>::max())
+    conv.v[0] = false;
   printConversion(conv);
 }
 
 /*
   if the string literal is empty the function halts execution
+  sets the global variable errno to 0 to verify for over/underflows
   verifies what type of scalar conversion type the string literal holds
   and handles it accordingly, otherwise prints everything as impossible
-  (infinite and non a number values included)
+  (infinite and NaN are implemented implicitly)
 */
 void ScalarConverter::convert(std::string const& lit) {
   if (lit.empty()) {
     std::cout << "Error: empty string" << std::endl;
     return ;
   }
+  errno = 0;
   if (isChar(lit)) handleChar(lit);
   else if (isInt(lit)) handleInt(lit);
   else if (isFractional(FLOAT, lit)) handleFloat(lit);
@@ -243,7 +228,7 @@ ScalarConverter::ScalarConverter(ScalarConverter const& other) {
 
 // copy assignment operator
 ScalarConverter& ScalarConverter::operator=(ScalarConverter const& other) {
-  if (this != &other) *this = other;
+  static_cast<void>(other);
   return *this;
 }
 

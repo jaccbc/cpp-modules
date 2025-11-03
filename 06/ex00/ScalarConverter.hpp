@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 15:28:43 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/18 17:20:13 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/11/03 13:09:24 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 #include <iostream>
 #include <iomanip>
 #include <limits>
-#include <sstream>
+#include <cstdlib>
+#include <cerrno>
 
 class ScalarConverter {
   public:
@@ -38,7 +39,7 @@ enum scalar {
 typedef struct s_scal {
   std::string const& numb;
   scalar type;
-  double value;
+  long double value;
   bool v[3];
 } scal_t;
 
