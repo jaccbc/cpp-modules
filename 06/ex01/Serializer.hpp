@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 11:49:42 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/16 16:01:21 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/11/04 00:12:24 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SERIALIZER_HPP
 
 #include <iostream>
+#include <stdint.h>
 #include "Data.hpp"
 
 class Serializer {
