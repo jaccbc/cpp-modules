@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 15:28:11 by joandre-          #+#    #+#             */
-/*   Updated: 2025/11/03 12:19:06 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/11/05 11:37:35 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int main(int argc, char **argv) {
   }
   else if (argc == 2) ScalarConverter::convert(argv[1]);
   else {
-    std::cout << "DISCLAIMER: to exit the loop, hit CTRL+D on Linux" 
-    " or CTRL+Z on Windows" << std::endl;
+    std::cout
+    << "DISCLAIMER: to exit the loop, hit CTRL+D (Linux)" << std::endl;
     std::string input;
     while (std::getline(std::cin, input)) {
       ScalarConverter::convert(input);

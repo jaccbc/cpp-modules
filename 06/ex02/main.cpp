@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 01:16:44 by joandre-          #+#    #+#             */
-/*   Updated: 2025/10/30 17:58:20 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/11/05 14:28:28 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,15 @@ void identify(Base& p) {
 */
 int main() {
   Base* p = generate();
+  if (!p) return 1;
+  std::cout << "dynamic_cast" << std::endl;
   identify(p);
   identify(*p);
   delete p;
+  std::cout << "static_test" << std::endl;
+  Base x;
+  A* s = static_cast<A*>(&x);
+  identify(static_cast<C*>(&x));
+  identify(*s);
   return 0;
 }
