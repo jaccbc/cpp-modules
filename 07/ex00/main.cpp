@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 14:33:33 by joandre-          #+#    #+#             */
-/*   Updated: 2025/11/06 00:16:19 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/11/07 14:32:49 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int main() {
   std::cout << "a = " << a << ", b = " << b << std::endl;
   std::cout << "min( a, b ) = " << ::min( a, b ) << std::endl;
   std::cout << "max( a, b ) = " << ::max( a, b ) << std::endl;
-  std::string c = "Small string";
-  std::string d = "Super big string";
+  std::string c = "chaine1";
+  std::string d = "chaine2";
   ::swap(c, d);
   std::cout << "c = " << c << ", d = " << d << std::endl;
   std::cout << "min( c, d ) = " << ::min( c, d ) << std::endl;

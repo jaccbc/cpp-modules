@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 14:35:50 by joandre-          #+#    #+#             */
-/*   Updated: 2025/11/05 23:55:05 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/11/07 14:31:00 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,10 @@ void swap(T& v1, T& v2) {
 
 template <typename T>
 T const& min(const T& v1, const T& v2) {
-  return v1 > v2 ? v2 : v1;
-};
+  return v1 > v2 ? v2 : v1; };
 
 template <typename T>
 T const& max(const T& v1, const T& v2) {
-  return v1 > v2 ? v1 : v2;
-};
+  return v1 > v2 ? v1 : v2; };
 
 #endif
