@@ -6,14 +6,14 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 22:53:06 by joandre-          #+#    #+#             */
-/*   Updated: 2025/11/10 13:51:39 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/11/11 12:15:06 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ARRAY_HPP
 # define ARRAY_HPP
 
-#include <ostream>
+#include <iostream>
 #include <stdexcept>
 
 template <typename T>

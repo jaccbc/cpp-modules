@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 14:33:33 by joandre-          #+#    #+#             */
-/*   Updated: 2025/11/09 22:39:46 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/11/11 10:47:26 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 template <typename T>
 void  print(T const& x) {
-  std::cout << "[" << x << "]" << std::endl;
+  std::cout << "[" << x << "]\t";
 }
 
 template <typename T>
@@ -40,6 +40,8 @@ int main() {
   std::cout << "Module 07 | Exercise 01" << std::endl;
   long a[] = { 52, -352, 51, -4206 };
   const size_t len = sizeof(a) / sizeof(*a);
+  iter(a, len, isPair<long>);
+  iter(a, len, add42<long>);
   iter(a, len, isPair<long>);
   return 0;
 }
