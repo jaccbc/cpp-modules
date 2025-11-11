@@ -49,8 +49,6 @@ Array<T>::Array(const unsigned int n)
     std::cout << *this << std::endl;
   }
   catch (std::bad_alloc const& e) {
-    a = NULL;
-    len = 0;
     std::cout << "Memory error: " << e.what() << std::endl;
   }
 
@@ -64,8 +62,6 @@ Array<T>::Array(Array const& other)
   std::cout << *this << std::endl;
   }
   catch (std::exception const& e) {
-    a = NULL;
-    len = 0;
     std::cout << "Error: " << e.what() << std::endl;
   }
 
@@ -80,8 +76,6 @@ Array<T>& Array<T>::operator=(Array const& other) {
         a[i] = other[i];
     }
     catch (std::exception const& e) {
-      a = NULL;
-      len = 0;
       std::cout << "Error: " << e.what() << std::endl;
     }
   }
