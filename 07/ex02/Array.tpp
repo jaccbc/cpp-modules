@@ -65,6 +65,7 @@ Array<T>::Array(Array const& other)
     std::cout << "Error: " << e.what() << std::endl;
   }
 
+// copy assignment operator
 template <typename T>
 Array<T>& Array<T>::operator=(Array const& other) {
   if (this != &other) {
