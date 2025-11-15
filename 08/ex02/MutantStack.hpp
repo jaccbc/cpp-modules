@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 12:28:52 by joandre-          #+#    #+#             */
-/*   Updated: 2025/11/14 21:33:35 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/11/15 19:18:44 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <list>
 #include <vector>
 #include <cstddef>
+#include <iterator>
 
 template <typename T>
 class MutantStack : public std::stack<T> {

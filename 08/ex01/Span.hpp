@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 13:24:01 by joandre-          #+#    #+#             */
-/*   Updated: 2025/11/14 12:18:24 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/11/15 19:19:29 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <vector>
 #include <stdexcept>
+#include <iterator>
 
 class Span {
   private:

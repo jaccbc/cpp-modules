@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 10:28:24 by joandre-          #+#    #+#             */
-/*   Updated: 2025/11/12 16:57:12 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/11/15 19:21:48 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <vector>
 #include <list>
 #include <deque>
+#include <iterator>
 
 template <typename T>
 void easyfind(T const& c, int n) {
