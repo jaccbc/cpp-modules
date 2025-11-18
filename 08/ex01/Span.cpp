@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 13:34:24 by joandre-          #+#    #+#             */
-/*   Updated: 2025/11/14 12:17:38 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/11/18 22:29:40 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 unsigned int Span::getMax() const { return max; }
 
 // returns the number of integers the Span class actually holds
-unsigned int Span::getSize() const { return size; }
+unsigned int Span::getSize() const { return N.size(); }
 
 // returns a reference of the object vector<int>
 std::vector<int> const& Span::getVector() const { return N; }
@@ -32,8 +32,8 @@ std::vector<int>::iterator Span::end() { return N.end(); }
   if there's no more space to insert numbers an exception is thrown
 */
 void Span::addNumber(const int n) {
-  if (size >= max) throw std::out_of_range("No more space left!");
-  ++size;
+  if (N.size() >= max) throw std::out_of_range("No more space left!");
+  //++size;
   N.push_back(n);
 }
 
@@ -44,7 +44,7 @@ void Span::addNumber(const int n) {
   analyzes the temporary sorted vector to find the minimum gap
 */
 size_t Span::shortestSpan() const {
-  if (size <= 1) throw std::logic_error("No span can be found!");
+  if (N.size() <= 1) throw std::logic_error("No span can be found!");
   std::vector<int> temp(N);
   std::sort(temp.begin(), temp.end());
   size_t diff = static_cast<size_t>(-1);
@@ -61,47 +61,28 @@ size_t Span::shortestSpan() const {
   conversion from signed to unsigned is implicit on return statement
 */
 size_t Span::longestSpan() const {
-  if (size <= 1) throw std::logic_error("No span can be found!");
+  if (N.size() <= 1) throw std::logic_error("No span can be found!");
   int max = *std::max_element(N.begin(), N.end());
   int min = *std::min_element(N.begin(), N.end());
   return max - min;
 };
 
-/*
-  fills the vector<int> with the range of iterators (begin - end)
-  measures the number of elements with std::distance
-  if this length + the current number of integers the vector holds
-  is greater than it's max capacity (assigned at constructor time)
-  an exception is thrown, otherwise fills the vector with std::copy
-  and std::back_inserter
-*/
-void Span::fillSpan(std::vector<int>::iterator begin,
-  std::vector<int>::iterator end) {
-  size_t len = std::distance(begin, end);
-  if (size + len > max)
-    throw std::out_of_range("The range is too big to fit!");
-  size += len;
-  std::copy(begin, end, std::back_inserter(N));
-}
-
 // overload of substract operator (wrapper function to vector<int>)
-int Span::operator[](const size_t i) {
-  if (i >= size) throw std::out_of_range("Index is out of bounds!");
+int Span::operator[](const size_t i) const {
+  if (i >= N.size()) throw std::out_of_range("Index is out of bounds!");
   return N[i];
 }
 
 // default object constructor
-Span::Span(unsigned int n) : max(n), size(0) { N.reserve(n); }
+Span::Span(unsigned int n) : max(n) { N.reserve(n); }
 
 // copy object constructor
-Span::Span(Span const& other) : max(other.getMax()), size(other.getSize()),
-  N(other.getVector()) {}
+Span::Span(Span const& other) : max(other.getMax()), N(other.getVector()) {}
 
 // copy assignment operator
 Span& Span::operator=(Span const& other) {
   if (this != &other) {
     max = other.getMax();
-    size = other.getSize();
     N = other.getVector();
   }
   return *this;
@@ -111,7 +92,7 @@ Span& Span::operator=(Span const& other) {
 Span::~Span() {}
 
 // prints all the numbers the class currently holds
-std::ostream& operator<<(std::ostream& out, Span& put) {
+std::ostream& operator<<(std::ostream& out, Span const& put) {
   for (size_t i = 0; i < put.getSize(); i++)
     out << "[" << put[i] << "] ";
   return out;
