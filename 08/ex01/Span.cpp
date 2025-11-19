@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 13:34:24 by joandre-          #+#    #+#             */
-/*   Updated: 2025/11/18 22:29:40 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/11/19 23:24:53 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ std::vector<int>::iterator Span::end() { return N.end(); }
 */
 void Span::addNumber(const int n) {
   if (N.size() >= max) throw std::out_of_range("No more space left!");
-  //++size;
   N.push_back(n);
 }
 
