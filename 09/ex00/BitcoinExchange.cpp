@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:07:26 by joandre-          #+#    #+#             */
-/*   Updated: 2025/11/28 01:02:06 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/12/01 19:45:23 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void BitcoinExchange::dbOpen() {
   if (!dataFile.is_open()) {
     std::string err(std::string("unable to open file ==> ")
       + std::string(DB_FILE));
-    throw std::ios_base::failure(err.c_str());
+    throw std::ios_base::failure(err);
   }
   std::string line;
   std::getline(dataFile, line);
@@ -52,66 +52,66 @@ static bool isValidRate(std::string& s) {
   std::istringstream limits(number);
   limits >> x;
   if (x < 0) throw std::range_error("not a positive number.");
-  if (x > 1000) throw std::range_error("too large of a number.");
-  return s = number, s.size();
+  if (x > 1000) throw std::range_error("too large a number.");
+  return s = number, !s.empty();
 }
 
 /*
   gets the current local time
   year boundaries: birth of btc (2009) and current year
 */
-static bool validDateRange(unsigned long long year,
+static bool isDateRangeValid(unsigned long long year,
   unsigned long long month, unsigned long long day) {
   time_t now = std::time(NULL);
   std::tm* time = std::localtime(&now);
   if (year < 2009ULL
     || year > static_cast<unsigned long long>(time->tm_year + 1900)
     || month > 12ULL
-    || (month <= 6 && month % 2 == 0 && day > 30)
-    || (month >= 9 && month % 2 && day > 30)) return false;
-  if (month == 2) {
-    if (day > 29) return false;
-    if (day == 29)
-      return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    || (month <= 6ULL && month % 2ULL == 0ULL && day > 30ULL)
+    || (month >= 9ULL && month % 2ULL && day > 30ULL)) return false;
+  if (month == 2ULL) {
+    if (day > 29ULL) return false;
+    if (day == 29ULL)
+      return (year % 4ULL == 0ULL && year % 100ULL != 0ULL) || (year % 400ULL == 0ULL);
   }
   return month && day;
 }
 
 /*
-  validates the date format if every char is a digit/space
-  eliminates spaces from the string argument if format is valid
+  checks and cleans the date string
+  only digits are accpeted; spaces are eliminated
 */
-static bool isValidDate(std::string& s) {
+static bool isDateClean(std::string& s) {
   std::string number;
   for (size_t i = 0; i < s.size(); i++) {
     if (!std::isdigit(s.at(i)) && !std::isspace(s.at(i)))
       return false;
     if (std::isdigit(s.at(i))) number += s.at(i);
   }
-  return s = number, s.size();
+  return s = number, !s.empty();
 }
 
 /*
   splits the full string date in 3
   year | month | day
   returns true if date is valid
+  after the split date strings can just have spaces
+  and numbers
 */
-static bool validateDate(std::string const& date) {
+static bool isValidDate(std::string const& date) {
+  if (std::count(date.begin(), date.end(), '-') != 2)
+    return false;
   size_t len = date.find("-");
-  if (len == date.npos) return false;
   std::string year(date.substr(0, len));
-  if (date.size() > year.size()
-    && date.substr(year.size() + 1).find("-") != date.npos) {
-    std::string month(date.substr(year.size() + 1,
-    date.substr(year.size() + 1).find("-")));
-    if (date.size() > year.size() + month.size() + 2) {
-      std::string day(date.substr(year.size() + month.size() + 2));
-      if (isValidDate(year) && isValidDate(month) && isValidDate(day))
-        return validDateRange(std::strtoull(year.c_str(), NULL, 10),
-          std::strtoull(month.c_str(), NULL, 10),
-          std::strtoull(day.c_str(), NULL, 10));
-    }
-  }
+  if (date.size() <= year.size()) return false;
+  len = year.size() + 1;
+  std::string month(date.substr(len, date.substr(len).find("-")));
+  if (date.size() <= len + month.size() + 1) return false;
+  std::string day(date.substr(len + month.size() + 1));
+  if (isDateClean(year) && isDateClean(month) && isDateClean(day))
+    return isDateRangeValid(std::strtoull(year.c_str(), NULL, 10),
+                            std::strtoull(month.c_str(), NULL, 10),
+                            std::strtoull(day.c_str(), NULL, 10));
   return false;
 }
 
@@ -121,6 +121,7 @@ static bool validateDate(std::string const& date) {
 */
 void BitcoinExchange::multiply(std::string const& date, std::string const& rate) {
   std::map<std::string,double>::const_iterator i = db.lower_bound(date);
+  if (i != db.begin() && i->first != date) --i;
   long double x = std::strtod(rate.c_str(), NULL) * i->second;
   std::ostringstream result;
   result << x;
@@ -128,21 +129,24 @@ void BitcoinExchange::multiply(std::string const& date, std::string const& rate)
 }
 
 /*
-  receives both db already fetched to container
-  opens input file and splits each line into date and rate
-  performs string and number validations and outputs accordingly
+  receives both db already fetched to the map container
+  opens input file and splits the line in half (date & rate)
+  performs string and number validations for date and rate
 */
 void  BitcoinExchange::dbDebug(const char* input) {
   dbOpen();
+  if (db.empty())
+    throw std::invalid_argument("database file is empty.");
   std::ifstream inputFile(input, std::ios::in);
   if (!inputFile.is_open())
   {
     std::string err("unable to open file ==> ");
     err += std::string(input);
-    throw std::ios_base::failure(err.c_str());
+    throw std::ios_base::failure(err);
   }
   std::string line;
-  std::getline(inputFile, line);
+  if (!std::getline(inputFile, line))
+    throw std::invalid_argument("input file is empty.");
   while (std::getline(inputFile, line)) {
     try {
       std::string date;
@@ -150,13 +154,12 @@ void  BitcoinExchange::dbDebug(const char* input) {
       if (line.find("|") != line.npos) {
         date = line.substr(0, line.find("|"));
         rate = line.substr(line.find("|") + 1);
-        if (validateDate(date) && isValidRate(rate)) {
+        if (isValidDate(date) && isValidRate(rate)) {
           multiply(date, rate);
           continue ;
         }
       }
-      throw std::invalid_argument(std::string(std::string("bad input ==> ")
-        + line).c_str());
+      throw std::invalid_argument(std::string("bad input ==> ") + line);
     }
     catch (std::exception const& e) {
       std::cout << "Error: " << e.what() << std::endl;
@@ -164,12 +167,16 @@ void  BitcoinExchange::dbDebug(const char* input) {
   }
 }
 
+// returns a reference to the map container (database)
 std::map<std::string,double> const& BitcoinExchange::getDB() const { return db; }
 
+// default object constructor
 BitcoinExchange::BitcoinExchange() {}
 
+// copy object consctrutor
 BitcoinExchange::BitcoinExchange(BitcoinExchange const& other) : db(other.getDB()) {}
 
+// copy assignment operator
 BitcoinExchange& BitcoinExchange::operator=(BitcoinExchange const& other) {
   if (this != &other) {
     db = other.getDB();
@@ -177,4 +184,5 @@ BitcoinExchange& BitcoinExchange::operator=(BitcoinExchange const& other) {
   return *this;
 }
 
+// object destructor
 BitcoinExchange::~BitcoinExchange() {}

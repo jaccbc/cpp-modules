@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 00:27:11 by joandre-          #+#    #+#             */
-/*   Updated: 2025/11/27 23:15:57 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/12/01 17:54:53 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <stdexcept>
 #include <map>
 #include <ctime>
+#include <algorithm>
 
 #define DB_FILE "data.csv"
 
