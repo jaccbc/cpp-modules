@@ -6,17 +6,17 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 19:53:03 by joandre-          #+#    #+#             */
-/*   Updated: 2025/12/03 21:44:57 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/12/03 22:31:23 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
 
 // getter to return a const reference to a stack of polish math expression
-std::vector<int> const& RPN::getStack() const { return notation; }
+std::vector<int> const& RPN::getVector() const { return notation; }
 
 // getter to return a reference to a stack of polish math expression
-std::vector<int>& RPN::myStack() { return notation; }
+std::vector<int>& RPN::myVector() { return notation; }
 
 /*
   private static method to validate a string of operators
@@ -60,7 +60,7 @@ bool RPN::isValidToken(std::string const& token) const {
 /*
   object method to perform the required calculation
   based on the op char ( + - * / )
-  >> needs further protection for / division 0 <<
+  op / is safe guarded with division by 0
 */
 void RPN::calc(const char op) {
  if (notation.size() < 2) throw std::invalid_argument("Error");
@@ -71,7 +71,10 @@ void RPN::calc(const char op) {
    case '+': x = left + right; break;
    case '-': x = left - right; break;
    case '*': x = left * right; break;
-   case '/': x = left / right; break;
+   case '/':
+     right == 0 ?
+     throw std::invalid_argument("Error") : x = left / right;
+     break;
    default :
      notation.push_back(left);
      notation.push_back(right);
@@ -84,11 +87,11 @@ void RPN::calc(const char op) {
 RPN::RPN() {}
 
 // copy object constructor
-RPN::RPN(RPN const& other) : notation(other.getStack()) {}
+RPN::RPN(RPN const& other) : notation(other.getVector()) {}
 
 // copy assingment operator
 RPN& RPN::operator=(RPN const& other) {
-  if (this != &other) notation = other.getStack();
+  if (this != &other) notation = other.getVector();
   return *this;
 }
 
