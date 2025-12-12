@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 19:51:12 by joandre-          #+#    #+#             */
-/*   Updated: 2025/12/03 22:32:10 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/12/11 20:31:10 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@
 class RPN {
   private:
     std::vector<int> notation;
-    static bool isValidOperator(std::string const&);
-  public:
+    bool isValidOperator(std::string const&) const;
     bool isValidToken(std::string const&) const;
+    void calc(const char);
+  public:
+    void run() const;
     std::vector<int> const& getVector() const;
     std::vector<int>& myVector();
-    void calc(const char);
-    RPN();
+    RPN(const char*);
     RPN(RPN const&);
     RPN& operator=(RPN const&);
     ~RPN();

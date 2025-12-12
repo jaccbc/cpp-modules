@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:07:26 by joandre-          #+#    #+#             */
-/*   Updated: 2025/12/01 19:45:23 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/12/11 20:10:19 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,10 @@ static bool isValidDate(std::string const& date) {
 }
 
 /*
-  finds the corresponding date in the container
-  multiply its values to the stdout
+  finds the corresponding string date in the container
+  if the string date has no equal correspondence, the closest (lower) date is choosen
+  converts the rate string to a double and multiplies by the btc DB price
+  converts the result back to string to be printed to the stdout
 */
 void BitcoinExchange::multiply(std::string const& date, std::string const& rate) {
   std::map<std::string,double>::const_iterator i = db.lower_bound(date);

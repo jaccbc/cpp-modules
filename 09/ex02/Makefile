@@ -6,7 +6,7 @@
 #    By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/16 15:27:32 by joandre-          #+#    #+#              #
-#    Updated: 2025/12/05 18:27:05 by joandre-         ###   ########.fr        #
+#    Updated: 2025/12/12 01:11:26 by joandre-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 NAME = PmergeMe
 SRC = main.cpp PmergeMe.cpp
 OBJ = $(SRC:.cpp=.o)
-INPUT = $(shell shuf -i 1-9000 -n 3000 | tr "\n" " ")
+INPUT = $(shell shuf -i 1-20 -n 10 | tr "\n" " ")
 
 all: $(NAME)
 

@@ -6,31 +6,24 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 19:53:03 by joandre-          #+#    #+#             */
-/*   Updated: 2025/12/03 22:31:23 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/12/12 01:03:28 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
 
-// getter to return a const reference to a stack of polish math expression
+// returns a const reference to a container (vector)
 std::vector<int> const& RPN::getVector() const { return notation; }
 
-// getter to return a reference to a stack of polish math expression
-std::vector<int>& RPN::myVector() { return notation; }
-
 /*
-  private static method to validate a string of operators
+  validates a string of operators
   max of 2 operators (op) before a digit or eof
   accepts + - * / and spaces ' '
 */
-bool RPN::isValidOperator(std::string const& s) {
+bool RPN::isValidOperator(std::string const& s) const {
   size_t op = 0;
   for (size_t i = 0; i < s.size(); i++) {
-    if (s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/') {
-      ++op;
-      if (std::isspace(s[i+1]) || !s[i+1]) continue;
-      else return false;
-    }
+    if (s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/') ++op;
     while (std::isspace(s[i])) ++i;
     if (std::isdigit(s[i])) return true;
   }
@@ -44,15 +37,14 @@ bool RPN::isValidOperator(std::string const& s) {
   every valid char needs to be separated by spaces
 */
 bool RPN::isValidToken(std::string const& token) const {
-  if (token.empty())
-    return false;
+  if (token.empty()) return false;
   for (size_t i = 0; i < token.size(); i++) {
     if (std::isdigit(token[i])) {
       if (!std::isspace(token[i+1])) return false;
-      if (i && !std::isspace(token[i-1])) return false;
     }
-    else if (!RPN::isValidOperator(token.substr(i)))
-      return false;
+    else if (std::isspace(token[i])) i++;
+    else if (!isValidOperator(token.substr(i))) return false;
+    else return false;
   }
   return true;
 }
@@ -63,7 +55,8 @@ bool RPN::isValidToken(std::string const& token) const {
   op / is safe guarded with division by 0
 */
 void RPN::calc(const char op) {
- if (notation.size() < 2) throw std::invalid_argument("Error");
+ if (notation.size() < 2)
+  throw std::invalid_argument("expression needs at least 2 operands");
  int x = 0;
  int right = notation.back(); notation.pop_back();
  int left = notation.back(); notation.pop_back();
@@ -73,7 +66,7 @@ void RPN::calc(const char op) {
    case '*': x = left * right; break;
    case '/':
      right == 0 ?
-     throw std::invalid_argument("Error") : x = left / right;
+     throw std::invalid_argument("division by zero") : x = left / right;
      break;
    default :
      notation.push_back(left);
@@ -83,8 +76,35 @@ void RPN::calc(const char op) {
  notation.push_back(x);
 }
 
-// default object constructor
-RPN::RPN() {}
+/*
+  public method responsible for printing the result
+  after the calculations a sole number is left in the container (result)
+  otherwise the expression is invalid and an exception is thrown
+*/
+void RPN::run() const {
+  if (notation.size() != 1)
+    throw std::invalid_argument("invalid Reverse Polish expression");
+  std::cout << notation.front() << std::endl;
+}
+
+/*
+  default object constructor
+  takes the const char* expression and make it a string object
+  verifies if the token is valid otherwise throws exception
+  if token is valid push the digits back to the container
+  and performs the calculations when an operator is found
+*/
+RPN::RPN(const char* expression) {
+  std::string token(expression);
+  if (isValidToken(token)) {
+    for (size_t i = 0; i < token.size(); i++) {
+      while (std::isspace(token[i])) ++i;
+      (std::isdigit(token[i])) ?
+      (notation.push_back(token[i] - '0')) : (calc(token[i]));
+    }
+  }
+  else throw std::invalid_argument("invalid input");
+}
 
 // copy object constructor
 RPN::RPN(RPN const& other) : notation(other.getVector()) {}
