@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:07:26 by joandre-          #+#    #+#             */
-/*   Updated: 2025/12/11 20:10:19 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/12/13 17:51:12 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static bool isValidRate(std::string& s) {
   }
   std::istringstream limits(number);
   limits >> x;
-  if (x < 0) throw std::range_error("not a positive number.");
-  if (x > 1000) throw std::range_error("too large a number.");
+  if (x < 0) throw std::range_error("not a positive number ==> " + s);
+  if (x > 1000) throw std::range_error("too large a number ==> " + s);
   return s = number, !s.empty();
 }
 

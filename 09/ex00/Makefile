@@ -6,7 +6,7 @@
 #    By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/16 15:27:32 by joandre-          #+#    #+#              #
-#    Updated: 2025/11/21 20:15:52 by joandre-         ###   ########.fr        #
+#    Updated: 2025/12/13 17:40:19 by joandre-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ fclean: clean
 
 re: fclean all
 
-run: $(NAME)
+run: $(NAME) $(DB)
 	valgrind -s --leak-check=full --show-leak-kinds=all \
 		--track-origins=yes --track-fds=yes ./$(NAME) $(FILE)
 
