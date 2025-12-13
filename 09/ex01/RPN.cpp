@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 19:53:03 by joandre-          #+#    #+#             */
-/*   Updated: 2025/12/12 01:03:28 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/12/13 18:56:11 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,25 @@
 // returns a const reference to a container (vector)
 std::vector<int> const& RPN::getVector() const { return notation; }
 
-/*
-  validates a string of operators
-  max of 2 operators (op) before a digit or eof
-  accepts + - * / and spaces ' '
-*/
-bool RPN::isValidOperator(std::string const& s) const {
-  size_t op = 0;
-  for (size_t i = 0; i < s.size(); i++) {
-    if (s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/') ++op;
-    while (std::isspace(s[i])) ++i;
-    if (std::isdigit(s[i])) return true;
-  }
-  return op > 2 ? false : true;
+// returns true if c is a valid operator
+bool RPN::isValidOperator(const char c) const {
+  return (c == '+' || c == '-' || c == '*' || c == '/');
 }
 
 /*
   verify the token string
-  does not accept sequencial digits nor anything other
-  than spaces and valid operators (+ - * /)
-  every valid char needs to be separated by spaces
+  does not accept sequencial digits
+  accepts spaces and valid operators (+ - * /)
+  every valid char needs to be separated by spaces or EOF
 */
 bool RPN::isValidToken(std::string const& token) const {
   if (token.empty()) return false;
   for (size_t i = 0; i < token.size(); i++) {
-    if (std::isdigit(token[i])) {
-      if (!std::isspace(token[i+1])) return false;
+    if (std::isdigit(token[i]) || isValidOperator(token[i])) {
+      if (std::isspace(token[i+1]) || token.size() == i+1) continue;
+      else return false;
     }
-    else if (std::isspace(token[i])) i++;
-    else if (!isValidOperator(token.substr(i))) return false;
+    else if (std::isspace(token[i])) continue;
     else return false;
   }
   return true;
@@ -77,7 +67,7 @@ void RPN::calc(const char op) {
 }
 
 /*
-  public method responsible for printing the result
+  public method responsible for printing the expression result
   after the calculations a sole number is left in the container (result)
   otherwise the expression is invalid and an exception is thrown
 */
@@ -91,7 +81,7 @@ void RPN::run() const {
   default object constructor
   takes the const char* expression and make it a string object
   verifies if the token is valid otherwise throws exception
-  if token is valid push the digits back to the container
+  if valid push the digits back to the container
   and performs the calculations when an operator is found
 */
 RPN::RPN(const char* expression) {
