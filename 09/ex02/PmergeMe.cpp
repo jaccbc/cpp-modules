@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 14:59:12 by joandre-          #+#    #+#             */
-/*   Updated: 2025/12/05 17:43:28 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/12/16 22:26:43 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void PmergeMe::run() {
   std::clock_t l_end = std::clock();
   printContent("After:", deq);
   std::cout << "Time to process a range of " << deq.size()
-  << " elements with std::deque : "
+  << " elements with std::deque : " << std::fixed << std::setprecision(6)
   << static_cast<double>((d_end - d_start)) / CLOCKS_PER_SEC
   << " µs" << std::endl;
   std::cout << "Time to process a range of " << lst.size()

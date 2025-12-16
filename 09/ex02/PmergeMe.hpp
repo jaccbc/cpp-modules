@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 15:03:20 by joandre-          #+#    #+#             */
-/*   Updated: 2025/12/05 17:25:43 by joandre-         ###   ########.fr       */
+/*   Updated: 2025/12/16 22:27:05 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <deque>
 #include <algorithm>
 #include <ctime>
+#include <iomanip>
 
 class PmergeMe {
   private:
