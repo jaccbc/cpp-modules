@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 14:59:12 by joandre-          #+#    #+#             */
-/*   Updated: 2026/01/23 14:47:48 by joandre-         ###   ########.fr       */
+/*   Updated: 2026/01/23 21:59:07 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,14 @@ std::string PmergeMe::getInput(int argc, char** argv) {
   return parse;
 }
 
+// returns a number from the Jacobsthal sequence based on argument index n
 size_t PmergeMe::jacobsthal(size_t n) {
-  if (n <= 0) return 0;
-  if (n == 1) return 1;
+  if (n <= 1) return n;
+  // a && b are the first values in the sequence
   size_t a = 0, b = 1, c;
   for (size_t i = 2; i <= n; ++i) {
     c = b + 2 * a;
+    // moves a and b to the next number in the sequence
     a = b;
     b = c;
   }
