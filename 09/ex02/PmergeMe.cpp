@@ -6,7 +6,7 @@
 /*   By: joandre- <joandre-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 14:59:12 by joandre-          #+#    #+#             */
-/*   Updated: 2025/12/25 17:18:12 by joandre-         ###   ########.fr       */
+/*   Updated: 2026/01/23 14:47:48 by joandre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,18 @@ std::string PmergeMe::getInput(int argc, char** argv) {
     parse += std::string(argv[c]) + " ";
   }
   return parse;
+}
+
+size_t PmergeMe::jacobsthal(size_t n) {
+  if (n <= 0) return 0;
+  if (n == 1) return 1;
+  size_t a = 0, b = 1, c;
+  for (size_t i = 2; i <= n; ++i) {
+    c = b + 2 * a;
+    a = b;
+    b = c;
+  }
+  return b;
 }
 
 // responsible to run the algo on both containers
